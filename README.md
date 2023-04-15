@@ -450,7 +450,7 @@ vergessen, erhalten wir ebenfalls wieder eine Oktalzahl!
 In 32-Bit-Systemen gibt es keinen Unterschied zwischen -1 
 und 0xffffffff. Wechselt man aber auf ein 64-Bit-System
 kann es zu Problemen kommen, da hier
-<code>
+```
 -1 != 0xffffffff ? 0x00000000ffffffff
 ```
 
@@ -581,14 +581,15 @@ wenn in einer api ein define abgeändert wird (wissentlich oder unwissentlich) w
 FIXME
 Bei defines wird oft der "Typ" vergessen.
 
-|  Datentyp      ^  Suffix 	                                                                 ^  Bedeutung                        ^
-^  ''int''       |  ''u'' oder ''U''                                                             |  ''unsigned int''                 |
-^  ''int''       |  ''l'' oder ''L''                                                             |  ''long''                         |
-^  ''int''       |  ''ul'', ''uL'', ''Ul'', ''UL'', ''lu'', ''lU'', ''Lu'', oder ''LU''          |  ''unsigned long''                |
-^  ''int''       |  ''ll'' oder ''LL''                                                           |  ''long long''                    |
-^  ''int''       |  ''ull'', ''uLL'', ''Ull'', ''ULL'', ''llu'', ''llU'', ''LLu'', oder ''LLU''  |  ''unsigned long long''           |
-^  ''double''    |  ''f'' oder ''F''                                                             |  ''float'' (**KEIN double !!!**)  |
-^  ''double''    |  ''l'' oder ''L''                                                             |  ''long double''                  |
+|  **Datentyp**  |                                  **Suffix**                                                 |           **Bedeutung**           |
+|:--------------:|:-------------------------------------------------------------------------------------------:|:---------------------------------:|
+|    ```int```   |                               ```u``` oder ```U```                                          |         ```unsigned int```        |
+|    ```int```   |                               ```l``` oder ```L```                                          |             ```long```            |
+|    ```int```   |     ```ul```, ```uL```, ```Ul```, ```UL```, ```lu```, ```lU```, ```Lu```, oder ```LU```     |        ```unsigned long```        |
+|    ```int```   |                              ```ll``` oder ```LL```                                         |          ```long long```          |
+|    ```int```   | ```ull```, ```uLL```, ```Ull```, ```ULL```, ```llu```, ```llU```, ```LLu```, oder ```LLU``` |      ```unsigned long long```     |
+|  ```double```  |                               ```f``` oder ```F```                                          | ```float``` (**KEIN double !!!**) |
+|  ```double```  |                               ```l``` oder ```L```                                          |         ```long double```         |
  	
 Links
   * [Constant suffixes and prefixes in ANSI-C](https://dystopiancode.blogspot.com/2012/08/constant-suffixes-and-prefixes-in-ansi-c.html)
@@ -607,6 +608,7 @@ alle Applikationsmodule angepasst werden müssen. Die Änderung geschieht
 ausschließlich im abstraction layer.
 
 Bsp. Die schon länger eingesetzte Lib1 wird durch Lib2 ersetzt
+```
    Lib1              Abstract-Layer       Application
                                          +---------------+
                                          | AppFunc()     |
@@ -621,7 +623,9 @@ Bsp. Die schon länger eingesetzte Lib1 wird durch Lib2 ersetzt
   | ...         |   |                | 
   |             |   +----------------+ 
   +-------------+
+```
 
+```
    Lib1->Lib2        Abstract-Layer       Application
                                          +---------------+
                                          | AppFunc()     |
@@ -636,6 +640,7 @@ Bsp. Die schon länger eingesetzte Lib1 wird durch Lib2 ersetzt
   | ...         |   |                | 
   |             |   +----------------+ 
   +-------------+
+```
 
 Dank der Abstraktionsschicht müssten bei der Applikation keine 
 Änderungen vorgenommen werden. Dennoch müssten Tests durchgeführt
@@ -662,7 +667,8 @@ Modulen und somit in einzelnen Unter-Structs abgelegt werden, deren Pointer
 dann später nur in die Oberstruktur eingetragen wird.
 
 Statt alles in einem Header zu definieren
-<code c app_bsp.h>
+```c 
+//app_bsp.h
 typedef struct BspGlobalDataStruc
 {
     /* Teil A */
@@ -686,7 +692,8 @@ typedef struct BspGlobalDataStruc
 
 sollten Gruppen gebildet werden, 
 
-<code c app_bsp_suba.h>
+```c
+//app_bsp_suba.h
 typedef struct BspSubDataStrucA
 {
     /* Teil A */
@@ -702,7 +709,8 @@ typedef struct BspSubDataStrucA
 }BspSubDataStrucA;
 ```
 
-<code c app_bsp_subb.h>
+```c
+//app_bsp_subb.h
 typedef struct BspSubDataStrucB
 {
     /* Teil B */
@@ -711,7 +719,8 @@ typedef struct BspSubDataStrucB
 }BspSubDataStrucB;
 ```
 
-<code c app_bsp_subc.h>
+```c
+//app_bsp_subc.h
 typedef struct BspSubDataStrucC
 {
     /* Teil C */
@@ -721,7 +730,8 @@ typedef struct BspSubDataStrucC
 ```
 
 die dann nur Referenzen auf die Unterdatenstrukturen enthalten
-<code c app_bsp.h>
+```c
+//app_bsp.h
 typedef struct BspGlobalDataStruc
 {
     /* Teil A */
